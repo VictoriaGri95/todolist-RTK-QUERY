@@ -6,21 +6,20 @@ import type { DomainTask, GetTasksResponse, UpdateTaskModel } from "./tasksApi.t
 export const tasksApi = baseApi.injectEndpoints({
   endpoints: (build) => ({
     getTasks: build.query<GetTasksResponse, string>({
-      query: (todolistId) => `todo-lists/${todolistId}/tasks`,
+      query: (todolistId) => `/todo-lists/${todolistId}/tasks`,
       providesTags: ["Task"],
     }),
-    addTask: build.mutation<BaseResponse<{ item: DomainTask }>, { todolistId: string; title: string }>({
+    addTask: build.mutation<
+      BaseResponse<{ item: DomainTask }>,
+      {
+        todolistId: string
+        title: string
+      }
+    >({
       query: ({ todolistId, title }) => ({
-        url: `todo-lists/${todolistId}/tasks`,
+        url: `/todo-lists/${todolistId}/tasks`,
         method: "POST",
         body: { title },
-      }),
-      invalidatesTags: ["Task"],
-    }),
-    removeTask: build.mutation<BaseResponse, { todolistId: string; taskId: string }>({
-      query: ({ todolistId, taskId }) => ({
-        url: `todo-lists/${todolistId}/tasks/${taskId}`,
-        method: "DELETE",
       }),
       invalidatesTags: ["Task"],
     }),
@@ -29,9 +28,22 @@ export const tasksApi = baseApi.injectEndpoints({
       { todolistId: string; taskId: string; model: UpdateTaskModel }
     >({
       query: ({ todolistId, taskId, model }) => ({
-        url: `todo-lists/${todolistId}/tasks/${taskId}`,
+        url: `/todo-lists/${todolistId}/tasks/${taskId}`,
         method: "PUT",
-        body: model,
+        body: { model },
+      }),
+      invalidatesTags: ["Task"],
+    }),
+    removeTask: build.mutation<
+      BaseResponse,
+      {
+        todolistId: string
+        taskId: string
+      }
+    >({
+      query: ({ todolistId, taskId }) => ({
+        url: `/todo-lists/${todolistId}/tasks/${taskId}`,
+        method: "DELETE",
       }),
       invalidatesTags: ["Task"],
     }),
@@ -46,14 +58,23 @@ export const _tasksApi = {
   },
   createTask(payload: { todolistId: string; title: string }) {
     const { todolistId, title } = payload
-    return instance.post<BaseResponse<{ item: DomainTask }>>(`/todo-lists/${todolistId}/tasks`, { title })
+    return instance.post<
+      BaseResponse<{
+        item: DomainTask
+      }>
+    >(`/todo-lists/${todolistId}/tasks`, { title })
   },
   updateTask(payload: { todolistId: string; taskId: string; model: UpdateTaskModel }) {
     const { todolistId, taskId, model } = payload
-    return instance.put<BaseResponse<{ item: DomainTask }>>(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
+    return instance.put<
+      BaseResponse<{
+        item: DomainTask
+      }>
+    >(`/todo-lists/${todolistId}/tasks/${taskId}`, model)
   },
   deleteTask(payload: { todolistId: string; taskId: string }) {
     const { todolistId, taskId } = payload
     return instance.delete<BaseResponse>(`/todo-lists/${todolistId}/tasks/${taskId}`)
   },
 }
+
