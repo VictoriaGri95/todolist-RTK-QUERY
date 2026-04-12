@@ -21,6 +21,7 @@ import Switch from "@mui/material/Switch"
 import Toolbar from "@mui/material/Toolbar"
 import { useNavigate } from "react-router"
 import { Path } from "@/common/routing"
+import { baseApi } from "@/app/baseApi.ts"
 
 export const Header = () => {
   const isLoggedIn = useAppSelector(selectIsLoggedIn)
@@ -38,12 +39,13 @@ export const Header = () => {
   }
 
   const logoutHandler = () => {
-    logout().then(res => {
-      if (res.data?.resultCode === ResultCode.Success) {
+    logout().unwrap().then(data => {
+      if (data.resultCode === ResultCode.Success) {
         dispatch(setIsLoggedInAC({ isLoggedIn: false }))
         localStorage.removeItem(AUTH_TOKEN)
-
       }
+    }).then(() => {
+      dispatch(baseApi.util.invalidateTags(['Todolist', 'Task']))
     })
   }
   const openFaqHandler = () => {
