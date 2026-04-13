@@ -97,7 +97,11 @@ export const tasksSlice = createAppSlice({
     ),
     updateTaskTC: create.asyncThunk(
       async (
-        payload: { todolistId: string; taskId: string; domainModel: Partial<UpdateTaskModel> },
+        payload: {
+          todolistId: string
+          taskId: string
+          domainModel: Partial<UpdateTaskModel>
+        },
         { dispatch, getState, rejectWithValue },
       ) => {
         const { todolistId, taskId, domainModel } = payload
@@ -144,7 +148,11 @@ export const tasksSlice = createAppSlice({
         },
       },
     ),
-    changeTaskTitleAC: create.reducer<{ todolistId: string; taskId: string; title: string }>((state, action) => {
+    changeTaskTitleAC: create.reducer<{
+      todolistId: string
+      taskId: string
+      title: string
+    }>((state, action) => {
       const task = state[action.payload.todolistId].find((task) => task.id === action.payload.taskId)
       if (task) {
         task.title = action.payload.title

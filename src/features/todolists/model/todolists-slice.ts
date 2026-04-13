@@ -58,7 +58,11 @@ export const todolistsSlice = createAppSlice({
       },
       {
         fulfilled: (state, action) => {
-          state.unshift({ ...action.payload.todolist, filter: "all", entityStatus: "idle" })
+          state.unshift({
+            ...action.payload.todolist,
+            filter: "all",
+            entityStatus: "idle",
+          })
         },
       },
     ),
@@ -117,13 +121,19 @@ export const todolistsSlice = createAppSlice({
         },
       },
     ),
-    changeTodolistFilterAC: create.reducer<{ id: string; filter: FilterValues }>((state, action) => {
+    changeTodolistFilterAC: create.reducer<{
+      id: string
+      filter: FilterValues
+    }>((state, action) => {
       const todolist = state.find((todolist) => todolist.id === action.payload.id)
       if (todolist) {
         todolist.filter = action.payload.filter
       }
     }),
-    changeTodolistStatusAC: create.reducer<{ id: string; entityStatus: RequestStatus }>((state, action) => {
+    changeTodolistStatusAC: create.reducer<{
+      id: string
+      entityStatus: RequestStatus
+    }>((state, action) => {
       const todolist = state.find((todolist) => todolist.id === action.payload.id)
       if (todolist) {
         todolist.entityStatus = action.payload.entityStatus

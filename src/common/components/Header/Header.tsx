@@ -39,14 +39,17 @@ export const Header = () => {
   }
 
   const logoutHandler = () => {
-    logout().unwrap().then(data => {
-      if (data.resultCode === ResultCode.Success) {
-        dispatch(setIsLoggedInAC({ isLoggedIn: false }))
-        localStorage.removeItem(AUTH_TOKEN)
-      }
-    }).then(() => {
-      dispatch(baseApi.util.invalidateTags(['Todolist', 'Task']))
-    })
+    logout()
+      .unwrap()
+      .then((data) => {
+        if (data.resultCode === ResultCode.Success) {
+          dispatch(setIsLoggedInAC({ isLoggedIn: false }))
+          localStorage.removeItem(AUTH_TOKEN)
+        }
+      })
+      .then(() => {
+        dispatch(baseApi.util.invalidateTags(["Todolist", "Task"]))
+      })
   }
   const openFaqHandler = () => {
     navigate(Path.FAQ)

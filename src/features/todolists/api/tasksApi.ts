@@ -30,7 +30,7 @@ export const tasksApi = baseApi.injectEndpoints({
       query: ({ todolistId, taskId, model }) => ({
         url: `/todo-lists/${todolistId}/tasks/${taskId}`,
         method: "PUT",
-        body: { model },
+        body: model,
       }),
       invalidatesTags: ["Task"],
     }),
@@ -77,4 +77,3 @@ export const _tasksApi = {
     return instance.delete<BaseResponse>(`/todo-lists/${todolistId}/tasks/${taskId}`)
   },
 }
-

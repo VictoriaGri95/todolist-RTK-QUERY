@@ -25,27 +25,26 @@ export const TodolistTitle = ({ todolist }: Props) => {
 
   const changeTodolistStatus = (entityStatus: RequestStatus) => {
     dispatch(
-      todolistsApi.util.updateQueryData('getTodolists', undefined, state => {
-        const todolist = state.find(todolist => todolist.id === id)
+      todolistsApi.util.updateQueryData("getTodolists", undefined, (state) => {
+        const todolist = state.find((todolist) => todolist.id === id)
         if (todolist) {
           todolist.entityStatus = entityStatus
         }
-      })
+      }),
     )
   }
 
-
   const deleteTodolist = () => {
-    changeTodolistStatus('loading')
+    changeTodolistStatus("loading")
     removeTodolist(id)
       .unwrap()
       .then((res) => {
         if (res.resultCode === ResultCode.Success) {
-          changeTodolistStatus('succeeded')
+          changeTodolistStatus("succeeded")
         }
       })
       .catch(() => {
-        changeTodolistStatus('idle')
+        changeTodolistStatus("idle")
       })
   }
 
