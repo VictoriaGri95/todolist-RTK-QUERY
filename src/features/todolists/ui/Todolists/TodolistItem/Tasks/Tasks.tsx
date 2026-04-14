@@ -3,9 +3,7 @@ import { useGetTasksQuery } from "@/features/todolists/api/tasksApi"
 import type { DomainTodolist } from "@/features/todolists/model/todolists-slice"
 import List from "@mui/material/List"
 import { TaskItem } from "./TaskItem/TaskItem"
-import {
-  TasksSkeleton
-} from "@/features/todolists/ui/Todolists/TodolistItem/TasksSkeleton/TasksSkeleton.tsx"
+import { TasksSkeleton } from "@/features/todolists/ui/Todolists/TodolistItem/TasksSkeleton/TasksSkeleton.tsx"
 
 type Props = {
   todolist: DomainTodolist

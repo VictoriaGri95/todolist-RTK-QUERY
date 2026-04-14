@@ -2,9 +2,7 @@ import { useGetTodolistsQuery } from "@/features/todolists/api/todolistsApi"
 import Grid from "@mui/material/Grid"
 import Paper from "@mui/material/Paper"
 import { TodolistItem } from "./TodolistItem/TodolistItem"
-import {
-  TodolistSkeleton
-} from "@/features/todolists/ui/Todolists/TodolistSkeleton/TodolistSkeleton.tsx"
+import { TodolistSkeleton } from "@/features/todolists/ui/Todolists/TodolistSkeleton/TodolistSkeleton.tsx"
 import Box from "@mui/material/Box"
 import { containerSx } from "@/common/styles"
 
