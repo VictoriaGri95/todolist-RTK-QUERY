@@ -5,6 +5,9 @@ import { handleError } from "@/common/utils/handleError.ts"
 export const baseApi = createApi({
   reducerPath: "todolistsApi",
   tagTypes: ["Todolist", "Task"],
+  // keepUnusedDataFor: 5, //время хранения данных в кеше
+  refetchOnFocus: true, //для автоматического повторного запроса за данными, когда окно приложения или вкладка браузера возвращаются в фокус
+  refetchOnReconnect: true, //  повторным запросом данных, когда приложение или браузер восстанавливает соединение с интернетом
   baseQuery: async (args, api, extraOptions) => {
     // await new Promise((resolve) => setTimeout(resolve, 2000))
 
@@ -19,7 +22,7 @@ export const baseApi = createApi({
     })(args, api, extraOptions)
 
     handleError(api, result)
-    
+
     return result
   },
   endpoints: () => ({}),

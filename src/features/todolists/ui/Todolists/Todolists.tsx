@@ -7,7 +7,11 @@ import Box from "@mui/material/Box"
 import { containerSx } from "@/common/styles"
 
 export const Todolists = () => {
-  const { data: todolists, isLoading } = useGetTodolistsQuery()
+  const { data: todolists, isLoading } = useGetTodolistsQuery(undefined, {
+    pollingInterval: 3000,
+    skipPollingIfUnfocused: true,
+  }) // автоматически повторять запросы через определённые интервалы времени
+
   if (isLoading) {
     return (
       <Box sx={containerSx} style={{ gap: "32px" }}>
