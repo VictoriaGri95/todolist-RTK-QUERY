@@ -8,8 +8,8 @@ import { containerSx } from "@/common/styles"
 
 export const Todolists = () => {
   const { data: todolists, isLoading } = useGetTodolistsQuery(undefined, {
-    pollingInterval: 3000,
-    skipPollingIfUnfocused: true,
+    // pollingInterval: 3000,
+    // skipPollingIfUnfocused: true,
   }) // автоматически повторять запросы через определённые интервалы времени
 
   if (isLoading) {

@@ -60,12 +60,19 @@ export const tasksApi = baseApi.injectEndpoints({
         cachedArgsForQuery.forEach(({ params }) => {
           patchResults.push(
             dispatch(
-              tasksApi.util.updateQueryData("getTasks", { todolistId, params: { page: params.page } }, (state) => {
-                const index = state.items.findIndex((task) => task.id === taskId)
-                if (index !== -1) {
-                  state.items[index] = { ...state.items[index], ...model }
-                }
-              }),
+              tasksApi.util.updateQueryData(
+                "getTasks",
+                {
+                  todolistId,
+                  params: { page: params.page },
+                },
+                (state) => {
+                  const index = state.items.findIndex((task) => task.id === taskId)
+                  if (index !== -1) {
+                    state.items[index] = { ...state.items[index], ...model }
+                  }
+                },
+              ),
             ),
           )
         })

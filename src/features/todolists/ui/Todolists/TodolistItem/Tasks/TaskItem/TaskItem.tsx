@@ -17,7 +17,7 @@ type Props = {
 }
 
 export const TaskItem = ({ task, todolist }: Props) => {
-  const [removeTask,  { isLoading: isRemoving }] = useRemoveTaskMutation()
+  const [removeTask, { isLoading: isRemoving }] = useRemoveTaskMutation()
   const [updateTask] = useUpdateTaskMutation()
 
   const deleteTask = () => {
@@ -37,7 +37,6 @@ export const TaskItem = ({ task, todolist }: Props) => {
 
   const isTaskCompleted = task.status === TaskStatus.Completed
   // const disabled = todolist.entityStatus === "loading"
-
 
   return (
     <ListItem sx={getListItemSx(isTaskCompleted)}>
