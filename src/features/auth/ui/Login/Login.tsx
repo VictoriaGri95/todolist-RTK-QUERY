@@ -17,9 +17,15 @@ import TextField from "@mui/material/TextField"
 import { Controller, type SubmitHandler, useForm } from "react-hook-form"
 import styles from "./Login.module.css"
 import { useState } from "react"
+import { InputAdornment, InputLabel, OutlinedInput } from "@mui/material"
+import { Visibility, VisibilityOff } from "@mui/icons-material"
+import IconButton from "@mui/material/IconButton"
 
 export const Login = () => {
   const themeMode = useAppSelector(selectThemeMode)
+
+  const [showPassword, setShowPassword] = useState(false);
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
 
   const [login] = useLoginMutation()
   const [captchaRequired, setCaptchaRequired] = useState(false)
@@ -83,14 +89,29 @@ export const Login = () => {
           <FormGroup>
             <TextField label="Email" margin="normal" error={!!errors.email} {...register("email")} />
             {errors.email && <span className={styles.errorMessage}>{errors.email.message}</span>}
-            <TextField
-              type="password"
-              label="Password"
-              margin="normal"
-              error={!!errors.password}
-              {...register("password")}
-            />
+
+            <FormControl variant="outlined" margin="normal" fullWidth>
+              <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+              <OutlinedInput
+                id="outlined-adornment-password"
+                type={showPassword ? 'text' : 'password'}
+                {...register("password")}
+                error={!!errors.password}
+                endAdornment={
+                  <InputAdornment position="end">
+                    <IconButton
+                      onClick={handleClickShowPassword}
+                      edge="end"
+                    >
+                      {showPassword ? <VisibilityOff /> : <Visibility />}
+                    </IconButton>
+                  </InputAdornment>
+                }
+                label="Password"
+              />
+            </FormControl>
             {errors.password && <span className={styles.errorMessage}>{errors.password.message}</span>}
+
             <FormControlLabel
               label={"Remember me"}
               control={
